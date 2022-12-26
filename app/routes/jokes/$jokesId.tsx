@@ -1,11 +1,26 @@
+// remix
+import { LoaderArgs, json } from "@remix-run/node";
+import { useLoaderData } from "@remix-run/react";
+
+// db
+import { db } from "~/utils/db.server";
+
+export const loader = async ({ params }: LoaderArgs) => {
+  const joke = await db.joke.findUnique({
+    where: { id: params.jokesId },
+  });
+
+  if (!joke) throw new Error("Joke Not Found");
+
+  return json(joke);
+};
 export default function JokeIdRoute() {
+  const data = useLoaderData<typeof loader>();
   return (
     <div>
       <p>Here's your hilarious joke:</p>
-      <p>
-        Why don't you find hippopotamuses hiding in trees? They're really good
-        at it.
-      </p>
+      <h1>{data?.title}</h1>
+      <p>{data?.content}</p>
     </div>
   );
 }
