@@ -29,3 +29,7 @@ export default function JokeIndexRoute() {
     </div>
   );
 }
+
+export function ErrorBoundary() {
+  return <div className="error-container">Ruh Roh...</div>;
+}
