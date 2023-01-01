@@ -2,9 +2,9 @@ import { PrismaClient } from "@prisma/client";
 const db = new PrismaClient();
 
 async function seed() {
-  const joe = await db.user.create({
+  const kody = await db.user.create({
     data: {
-      username: "jsmith",
+      username: "kody",
       passwordHash:
         "$2b$10$K7L1OJ45/4Y2nIvhRVpCe.FSmhDdWoXehVzJptJ/op0lSsvqNu/1u",
     },
@@ -12,7 +12,7 @@ async function seed() {
 
   await Promise.all(
     getJokes().map((joke) => {
-      const data = { jokesterId: joe.id, ...joke };
+      const data = { jokesterId: kody.id, ...joke };
       return db.joke.create({ data });
     })
   );
